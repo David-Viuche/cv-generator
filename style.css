@@ -17,6 +17,7 @@ section{
   background-color: lightgreen;
   width: 100%;
   height: 100%;
+  max-width: 80vw;
 }
 
 header{
@@ -28,4 +29,29 @@ header{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.form-group{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.form-header{
+  width: 100%;
+  height: 20%;
+  background-color: black
+}
+
+.form-body{
+  width: 100%;
+  height: 100%;
+  background-color: yellow
+}
+
+@media (max-width: 400px) { 
+  section{
+    background-color: darkgreen;
+    max-width: 100vw;
+  }
 }
