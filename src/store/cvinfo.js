@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { encode, decode } from 'js-base64'
+import { fetchMock } from '@/helpers/fetchMock'
 
 export const useUserProfile = create((set, get) => {
     return {
@@ -18,19 +19,23 @@ export const useUserProfile = create((set, get) => {
 
             const { search } = window.location
 
-            const rawData = search.split('?')[1]
+            const rawData = new URLSearchParams(search)
 
             let basicDataFetch
 
-            if (rawData) {
-                const [basicData] = rawData?.split('%7C')
-                basicDataFetch = JSON.parse(decode(basicData)).basicData
-            }
+            try {
 
-            if (!basicDataFetch) {
-                const response = await fetch('http://192.168.10.114:3000/mock_profile.json')
-                const data = await response.json()
-                basicDataFetch = data.basicData
+                const basicData = rawData.get('b')
+                basicDataFetch = JSON.parse(decode(basicData)).basicData
+
+                if (!basicDataFetch) {
+                    let resMock = await fetchMock()
+                    basicDataFetch = resMock.basicData
+                }
+
+            } catch (error) {
+                let resMock = await fetchMock()
+                basicDataFetch = resMock.basicData
             }
 
             const VALUES = {
