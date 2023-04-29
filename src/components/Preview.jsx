@@ -1,6 +1,8 @@
 import { useEffect } from "react"
 import { useUserProfile } from "../store/cvinfo.js"
-import { TfiEmail, TfiMobile, TfiLocationPin } from 'react-icons/tfi/index.js'
+import { TfiEmail, TfiMobile, TfiLocationPin, TfiMarkerAlt } from 'react-icons/tfi/index.js'
+import { Modal } from "./Modal.jsx"
+import { useModal } from "@/hooks/useModal.js"
 
 export const Preview = () => {
 
@@ -16,6 +18,8 @@ export const Preview = () => {
     } = useUserProfile(state => state.basicData)
 
     const fetchData = useUserProfile(state => state.fetchData)
+
+    const [isOpenEdit, openModalEdit, closeModalEdit] = useModal(false)
 
     useEffect(() => {
 
@@ -48,7 +52,17 @@ export const Preview = () => {
                 <p>
                     {description}
                 </p>
+                <div className="flex justify-end w-full">
+                    <button className="text-2xl hover:scale-110" onClick={openModalEdit}>
+                        <TfiMarkerAlt />
+                    </button>
+                </div>
             </div>
+            <Modal isOpen={isOpenEdit} closeModal={closeModalEdit}>
+                <div className="h-96 w-96">
+                    <h1>Buenass</h1>
+                </div>
+            </Modal>
         </section>
     )
 
