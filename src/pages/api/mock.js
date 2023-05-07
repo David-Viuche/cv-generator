@@ -4,7 +4,7 @@ export default function handler(req, res) {
             "photo": "https://d31i9b8skgubvn.cloudfront.net/folder/photos/5cc6258b-3b45-4d19-8d5a-504e1356470c",
             "name": "Pedro Pepito fetch",
             "lastName": "Perez Paez 1",
-            "birthDate": "05/10/1992",
+            "birthDate": "1992-10-05",
             "email": "pedropaez@gmail.com",
             "address": "Calle 67 - 23 21",
             "phone": 3221119988,
