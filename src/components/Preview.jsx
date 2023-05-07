@@ -1,6 +1,10 @@
 import { useEffect } from "react"
 import { useUserProfile } from "../store/cvinfo.js"
-import { TfiEmail, TfiMobile, TfiLocationPin } from 'react-icons/tfi/index.js'
+import { TfiEmail, TfiMobile, TfiLocationPin, TfiMarkerAlt } from 'react-icons/tfi/index.js'
+import { Modal } from "./Modal.jsx"
+import { EditForm } from './EditForm.jsx'
+import { useModal } from "@/hooks/useModal.js"
+import { tipos_info } from "@/helpers/const.js"
 
 export const Preview = () => {
 
@@ -16,6 +20,8 @@ export const Preview = () => {
     } = useUserProfile(state => state.basicData)
 
     const fetchData = useUserProfile(state => state.fetchData)
+
+    const [isOpenEdit, openModalEdit, closeModalEdit] = useModal(false)
 
     useEffect(() => {
 
@@ -48,7 +54,15 @@ export const Preview = () => {
                 <p>
                     {description}
                 </p>
+                <div className="flex justify-end w-full">
+                    <button className="text-2xl hover:scale-110 hover:bg-slate-300 hover:text-white hover:rounded-full p-2" onClick={openModalEdit}>
+                        <TfiMarkerAlt />
+                    </button>
+                </div>
             </div>
+            <Modal isOpen={isOpenEdit} closeModal={closeModalEdit} title="Editar">
+                <EditForm typeInfo={tipos_info.BASIC_DATA} closeModal={closeModalEdit} />
+            </Modal>
         </section>
     )
 

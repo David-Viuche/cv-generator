@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 import { encode, decode } from 'js-base64'
+import { fetchMock } from '@/helpers/fetchMock'
+import { calculateAge } from '@/helpers/utils'
 
 export const useUserProfile = create((set, get) => {
     return {
@@ -7,7 +9,7 @@ export const useUserProfile = create((set, get) => {
             photo: 'https://d31i9b8skgubvn.cloudfront.net/folder/photos/5cc6258b-3b45-4d19-8d5a-504e1356470c',
             name: 'Pedro Pepito',
             lastName: 'Perez Paez',
-            birthDate: '05/10/1992',
+            birthDate: '1992-10-05',
             email: 'pedropaez@gmail.com',
             address: 'Calle 67 - 23 21',
             phone: 3221119988,
@@ -18,19 +20,25 @@ export const useUserProfile = create((set, get) => {
 
             const { search } = window.location
 
-            const rawData = search.split('?')[1]
+            const rawData = new URLSearchParams(search)
 
             let basicDataFetch
 
-            if (rawData) {
-                const [basicData] = rawData?.split('%7C')
-                basicDataFetch = JSON.parse(decode(basicData)).basicData
-            }
+            try {
 
-            if (!basicDataFetch) {
-                const response = await fetch('http://192.168.10.114:3000/mock_profile.json')
-                const data = await response.json()
-                basicDataFetch = data.basicData
+                const basicData = rawData.get('b')
+                basicDataFetch = JSON.parse(decode(basicData))
+
+                console.log(basicDataFetch)
+
+                if (!basicDataFetch) {
+                    let resMock = await fetchMock()
+                    basicDataFetch = resMock.basicData
+                }
+
+            } catch (error) {
+                let resMock = await fetchMock()
+                basicDataFetch = resMock.basicData
             }
 
             const VALUES = {
@@ -38,6 +46,30 @@ export const useUserProfile = create((set, get) => {
             }
 
             set({ basicData: VALUES.basicData }, false, 'FETCH_DATA')
+        },
+        setBasicData: (basicData) => {
+
+            const { basicData: currData, updateParams } = get()
+
+            const dataToSet = { ...currData, ...basicData }
+
+            dataToSet.age = calculateAge(dataToSet.birthDate)
+
+            set({ basicData: dataToSet }, false, 'SET_DATA')
+
+            updateParams()
+        },
+        updateParams: () => {
+
+            const { basicData } = get()
+
+            const { search } = window.location
+
+            const dataToSet = new URLSearchParams(search)
+
+            dataToSet.set('b', encode(JSON.stringify(basicData)))
+
+            window.location.search = dataToSet.toString()
         }
     }
 })
