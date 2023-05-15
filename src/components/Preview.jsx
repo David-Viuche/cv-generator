@@ -52,7 +52,7 @@ export const Preview = () => {
                     {address}
                 </h2>
                 <p>
-                    {description}
+                    {`${description.substring(1, 200)}...`}
                 </p>
                 <div className="flex justify-end w-full">
                     <button className="text-2xl hover:scale-110 hover:bg-slate-300 hover:text-white hover:rounded-full p-2" onClick={openModalEdit}>

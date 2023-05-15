@@ -4,9 +4,9 @@ export const InputForm = ({ type, name, label, required, placeHolder, maxLength,
             <label className="m-1" htmlFor={name}>{label}</label>
             {
                 (type !== 'textarea') ? (
-                    <input className="border-2 w-full rounded-md p-2" type={type} name={name} required={required} placeholder={placeHolder} maxLength={maxLength} defaultValue={basicData[name]} />
+                    <input className="border-2 w-full rounded-md p-2" type={type} id={name} name={name} required={required} placeholder={placeHolder} maxLength={maxLength} defaultValue={basicData[name]} />
                 ) :
-                    <textarea className="border-2 w-full rounded-md p-2 h-40" name={name} required={required} placeholder={placeHolder} maxLength={maxLength} cols="20" rows="10" defaultValue={basicData[name]}></textarea>
+                    <textarea className="border-2 w-full rounded-md p-2 h-40" id={name} name={name} required={required} placeholder={placeHolder} maxLength={maxLength} cols="20" rows="10" defaultValue={basicData[name]}></textarea>
             }
         </div>
     )
