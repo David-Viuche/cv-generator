@@ -22,7 +22,7 @@ export const Header = ({ children }) => {
                     }
                 </div>
             </div>
-            <nav className={`bg-white z-10 border sm:border-none absolute p-5 top-20 inset-x-0 transition transform origin-top-right ${(!isOpen) && 'hidden'} sm:block  sm:relative sm:top-0`}>
+            <nav className={`bg-white z-10 shadow-sm sm:shadow-none border-b-2 sm:border-none absolute p-5 top-20 inset-x-0 transition transform origin-top-right ${(!isOpen) && 'hidden'} sm:block  sm:relative sm:top-0`}>
                 <ul className='flex flex-col justify-center items-center gap-5 text-center w-full sm:flex-row sm:h-14'>
                     <HeaderLink href='/' ariaLabel='redirección a la página principal'>Inicio</HeaderLink>
                     <HeaderLink href='/contacto' ariaLabel='redirección a la pagina de contacto'>Contacto</HeaderLink>
