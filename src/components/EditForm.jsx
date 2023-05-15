@@ -72,15 +72,15 @@ export const EditForm = ({ typeInfo, closeModal }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="p-10 max-h-96 sm:max-h-[80vh] sm:max-w-4xl overflow-scroll sm:overflow-auto flex flex-col justify-evenly items-center gap-10">
-            <div className="flex flex-wrap justify-evenly items-center gap-10">
+        <form onSubmit={handleSubmit} className="sm:p-10 max-h-[80vh] sm:max-w-4xl overflow-scroll justify-center sm:overflow-auto flex flex-col items-center ">
+            <div className="flex flex-wrap sm:justify-evenly justify-center overflow-scroll sm:overflow-auto items-center sm:gap-10 gap-5 p-2">
                 {Object.entries(dataStructure[typeInfo]).map((el, index) => {
                     return (
                         <InputForm key={index} type={el[1].type} name={el[0]} label={el[1].label} required={el[1].required} placeHolder={el[1].placeHolder} maxLength={el[1].maxLength} basicData={basicData} />
                     )
                 })}
             </div>
-            <div className="flex justify-evenly items-center gap-5">
+            <div className="flex justify-center items-center gap-5 p-4 border-t-2 w-full">
                 <input className="rounded-md w-20 p-2 bg-red-500 hover:bg-red-400 text-white cursor-pointer hover:scale-110" type="button" value="Cancelar" onClick={closeModal} />
                 <input className="rounded-md w-20 p-2 bg-orange-500 hover:bg-orange-400 text-white cursor-pointer hover:scale-110" type="reset" value="Borrar" />
                 <input className="rounded-md w-20 p-2 bg-green-600 hover:bg-green-500 text-white cursor-pointer hover:scale-110" type="submit" value="Guardar" />
